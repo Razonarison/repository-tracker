@@ -1,22 +1,4 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-
-function RepoCard() {
-  const [searchKey] = useState('java');
-
-  const { isPending, error, data } = useQuery({
-    queryKey: ['repoData', searchKey],
-    queryFn: () =>
-      fetch(
-        import.meta.env.VITE_GITHUB_URL +
-          `search/repositories?q=${searchKey}&per_page=10`,
-      ).then((res) => res.json()),
-  });
-
-  if (isPending) return <p>Loading ...</p>;
-
-  if (error) return <p className="text-red-500">error {error.message}</p>;
-
+function RepoCard({ data }) {
   return (
     <>
       {data &&
